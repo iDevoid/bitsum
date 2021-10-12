@@ -8,6 +8,8 @@ Personal Record coin transaction
 4. The Balance or the latest transactional data record is a direct access to record.
 5. Doesn't allow new transaction that has date behind the latest transaction date or back-date. Because transaction records should have moving forward dates.
 6. Doesn't allow to pay bigger amount than the balance.
+7. All times are process and store in UTC.
+8. Amount does not allow 0 (zero) or less.
 
 
 ## How to Run
@@ -42,7 +44,10 @@ curl --request POST \
 	"amount": 1.1
 }'
 ```
+### success:
 ![pay](./static/pay.png)
+### not enough amount:
+![not-enough](./static/not-enough.png)
 
 3. `/coin/history`\
 Shows the historical data between start and end dates.
@@ -56,8 +61,12 @@ curl --request POST \
 	"end_date_time": "2019-10-30T14:48:01+01:00"
 }'
 ```
+### success:
 ![history](./static/history.png)
-
+### no data:
+![no-data](./static/no-data.png)
+### bad date:
+![bad-date-history](./static/bad-date-history.png)
 
 4.  `/coin/wallet`\
 Shows the balance and the latest transaction date.
@@ -66,4 +75,7 @@ example:
 curl --request GET \
   --url http://localhost:9000/coin/wallet
 ```
+### success:
 ![wallet](./static/wallet.png)
+### no record:
+![error wallet](./static/error-wallet.png)
