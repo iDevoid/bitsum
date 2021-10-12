@@ -38,7 +38,7 @@ func CoinsInit(coinsCase coins.Usecase) CoinsHandler {
 func (ch *coinsHandler) Payment(ctx *fiber.Ctx) error {
 	var body model.Coin
 	err := json.Unmarshal(ctx.Body(), &body)
-	if err != nil || body.Amount == 0 || body.DateTime.IsZero() {
+	if err != nil || body.Amount <= 0 || body.DateTime.IsZero() {
 		ctx.Status(http.StatusBadRequest)
 		return errors.New(http.StatusText(http.StatusBadRequest))
 	}
@@ -67,7 +67,7 @@ func (ch *coinsHandler) Payment(ctx *fiber.Ctx) error {
 func (ch *coinsHandler) Receive(ctx *fiber.Ctx) error {
 	var body model.Coin
 	err := json.Unmarshal(ctx.Body(), &body)
-	if err != nil || body.Amount == 0 || body.DateTime.IsZero() {
+	if err != nil || body.Amount <= 0 || body.DateTime.IsZero() {
 		ctx.Status(http.StatusBadRequest)
 		return errors.New(http.StatusText(http.StatusBadRequest))
 	}
