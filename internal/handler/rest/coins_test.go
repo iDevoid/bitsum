@@ -97,6 +97,20 @@ func Test_coinsHandler_Payment(t *testing.T) {
 			wantErr: true,
 		},
 		{
+			name: "bad amount negative",
+			args: args{
+				ctx: func() *fiber.Ctx {
+					ctx := app.AcquireCtx(&fasthttp.RequestCtx{})
+					ctx.Request().SetBody([]byte(`{
+						"datetime": "2019-10-05T14:48:01+01:00",
+						"amount": -1
+					}`))
+					return ctx
+				}(),
+			},
+			wantErr: true,
+		},
+		{
 			name: "error",
 			args: args{
 				ctx: func() *fiber.Ctx {
@@ -197,6 +211,20 @@ func Test_coinsHandler_Receive(t *testing.T) {
 					ctx.Request().SetBody([]byte(`{
 						"datetime": "2019-10-05T14:48:01+01:00",
 						"amount": 0
+					}`))
+					return ctx
+				}(),
+			},
+			wantErr: true,
+		},
+		{
+			name: "bad amount negative",
+			args: args{
+				ctx: func() *fiber.Ctx {
+					ctx := app.AcquireCtx(&fasthttp.RequestCtx{})
+					ctx.Request().SetBody([]byte(`{
+						"datetime": "2019-10-05T14:48:01+01:00",
+						"amount": -1
 					}`))
 					return ctx
 				}(),
